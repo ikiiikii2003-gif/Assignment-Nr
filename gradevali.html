@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Grade Assignment</title>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #000000;
+            padding: 20px;
+        }
+
+        input,
+        button {
+            padding: 10px;
+            margin: 5px;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 500px;
+            margin: 20px auto;
+            background-color: rgb(171, 221, 255);
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+
+        .title-frame {
+            border: 3px solid #000;
+            padding: 10px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            background-color: #fff;
+        }
+
+        #gradeResult {
+            border: none;
+            background: none;
+            padding: 0;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="title-frame">Grade Assignment</div>
+        <b>
+            <p>Enter the Score: <input type="number" id="scoreInput" min="0" max="100" required></p>
+        </b>
+        <button onclick="getGrade()"><b>Submit</b></button>
+        <p id="gradeResult"></p>
+
+        <button onclick="goBack()"><b>Back</b></button>
+    </div>
+
+    <script>
+        function getGrade() {
+            var scoreInput = document.getElementById("scoreInput");
+
+            if (!scoreInput.checkValidity()) {
+                document.getElementById("gradeResult").innerHTML = scoreInput.validationMessage;
+                return;
+            }
+
+            let score = parseFloat(scoreInput.value);
+            let grade = "";
+            if (score >= 90) {
+                grade = "A";
+            } else if (score >= 80) {
+                grade = "B";
+            } else if (score >= 70) {
+                grade = "C";
+            } else if (score >= 60) {
+                grade = "D";
+            } else {
+                grade = "F";
+            }
+
+            document.getElementById("gradeResult").innerHTML = "You got grade: \"" + grade + "\".";
+        }
+        function goBack() {
+            window.history.back();
+        }
+
+    </script>
+</body>
+
+</html>

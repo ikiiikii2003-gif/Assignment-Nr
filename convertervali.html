@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Unit Converter</title>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #000000;
+            padding: 20px;
+        }
+
+        input,
+        button {
+            padding: 10px;
+            margin: 5px;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 500px;
+            margin: 20px auto;
+            background-color: rgb(109, 255, 64);
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .title-frame {
+            border: 3px solid #000;
+            padding: 10px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            background-color: #fff;
+        }
+
+        #tempResult {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="title-frame">Temperature Converter (°C to °F)</div>
+
+        <b>
+            <p>Enter Celsius: <input type="number" id="celsiusInput" required></p>
+        </b>
+        <button onclick="convertTemp()"><b>Convert</b></button>
+        <p id="tempResult"></p>
+
+        <button onclick="goBack()"><b>Back</b></button>
+    </div>
+
+    <script>
+        function convertTemp() {
+            const celsiusInput = document.getElementById("celsiusInput");
+
+            if (!celsiusInput.checkValidity()) {
+                document.getElementById("tempResult").innerHTML = celsiusInput.validationMessage;
+                return;
+            }
+
+            let celsius = parseFloat(celsiusInput.value);
+            let fahrenheit = (celsius * 9 / 5) + 32;
+
+            document.getElementById("tempResult").innerHTML = `${celsius}°C = ${fahrenheit.toFixed(2)}°F`;
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+
+</html>
