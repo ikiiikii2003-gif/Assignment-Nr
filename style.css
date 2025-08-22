@@ -17,18 +17,13 @@ body {
     border-radius: 8px;
 }
 
-.header {
-    text-align: center;
-    margin-bottom: 30px;
-    padding-bottom: 20px;
-    border-bottom: 2px solid #aa0613;
-}
 
 h1 {
     color: #1d3557;
     margin-bottom: 5px;
     font-size: 2.2em;
     letter-spacing: 1px;
+    text-align: center;
 }
 
 h2 {
@@ -40,12 +35,32 @@ h2 {
     padding-left: 10px;
 }
 
-.contact-info {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 10px;
-    font-size: 0.95em;
+
+.center {
+    text-align: center;
+}
+
+.right {
+    text-align: right;
+}
+
+nav {
+    background-color: #f0f0f0;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #007BFF;
 }
 
 .section {
@@ -71,6 +86,7 @@ h2 {
     margin-left: -1em;
 }
 
+/* --- HOBBIES --- */
 .hobby-section {
     margin-bottom: 30px;
     padding: 30px;
@@ -104,27 +120,54 @@ h2 {
     transform: scale(1.05);
 }
 
-/* --- LINK STYLING FOR HOBBIES LINK --- */
-a:link {
+
+a {
     color: #007BFF;
-    /* default blue */
     text-decoration: none;
     font-weight: bold;
     transition: color 0.3s ease;
 }
 
-a:visited {
-    color: #800080;
-    /* purple after clicked */
-}
-
 a:hover {
     color: #FF5733;
-    /* orange on hover */
+
+}
+
+a:visited {
+    color: #800080;
+
 }
 
 a:active {
     color: #aa0613;
-    /* dark red while clicking */
+
 }
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 15px;
+    color: #007BFF;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.back-link:hover {
+    color: #FF5733;
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .hobby-image-frame {
+        width: 100%;
+        height: 300px;
+    }
+
+    .hobby-image-frame img {
+        height: 300px;
+    }
 }
