@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Unit Converter</title>
+    <title>Calculate Change</title>
     <style>
         body {
             font-family: Arial;
@@ -37,7 +37,7 @@
             background-color: #fff;
         }
 
-        #tempResult {
+        #changeResult {
             font-weight: bold;
         }
     </style>
@@ -45,30 +45,39 @@
 
 <body>
     <div class="container">
-        <div class="title-frame">Temperature Converter (°C to °F)</div>
+        <div class="title-frame">Calculate Change</div>
 
         <b>
-            <p>Enter Celsius: <input type="number" id="celsiusInput" required></p>
+            <p>Enter Amount: <input type="number" id="amountInput" min="1" required></p>
         </b>
-        <button onclick="convertTemp()"><b>Convert</b></button>
-        <p id="tempResult"></p>
+        <button onclick="calculateChange()"><b>Submit</b></button>
+        <p id="changeResult"></p>
 
         <button onclick="goBack()"><b>Back</b></button>
     </div>
 
     <script>
-        function convertTemp() {
-            const celsiusInput = document.getElementById("celsiusInput");
+        function calculateChange() {
+            const amountInput = document.getElementById("amountInput");
 
-            if (!celsiusInput.checkValidity()) {
-                document.getElementById("tempResult").innerHTML = celsiusInput.validationMessage;
+            if (!amountInput.checkValidity()) {
+                document.getElementById("changeResult").innerHTML = amountInput.validationMessage;
                 return;
             }
 
-            let celsius = parseFloat(celsiusInput.value);
-            let fahrenheit = (celsius * 9 / 5) + 32;
+            let amount = parseInt(amountInput.value);
+            let result = "";
+            const denominations = [500, 100, 50, 20, 1];
 
-            document.getElementById("tempResult").innerHTML = `${celsius}°C = ${fahrenheit.toFixed(2)}°F`;
+            for (let i = 0; i < denominations.length; i++) {
+                const count = Math.floor(amount / denominations[i]);
+                if (count > 0) {
+                    result += `${count} of ฿${denominations[i]}<br>`;
+                    amount -= count * denominations[i];
+                }
+            }
+
+            document.getElementById("changeResult").innerHTML = result;
         }
 
         function goBack() {
