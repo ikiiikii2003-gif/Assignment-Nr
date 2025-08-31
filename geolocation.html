@@ -39,6 +39,7 @@
             border: none;
             border-radius: 8px;
             transition: background-color 0.3s;
+            margin: 8px;
         }
 
         button:hover {
@@ -48,6 +49,11 @@
         p {
             font-size: 18px;
             margin-top: 20px;
+        }
+
+        #output {
+            font-weight: bold;
+            margin-top: 15px;
         }
     </style>
 </head>
@@ -61,6 +67,7 @@
 
         <p>Click the button below to calculate your distance from Kasem Bundit University.</p>
         <button onclick="getLocation()">Where Am I?</button>
+        <button onclick="goBack()">Back</button>
         <p id="output"></p>
     </div>
 
@@ -71,10 +78,11 @@
         function getLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showDistance, showError, {
-                    enableHighAccuracy: true
+                    enableHighAccuracy: true,
+                    timeout: 10000 // validation: stop waiting if too long
                 });
             } else {
-                document.getElementById("output").innerText = "Geolocation is not supported by your browser.";
+                document.getElementById("output").innerText = "❌ Geolocation is not supported by your browser.";
             }
         }
 
@@ -82,13 +90,19 @@
             const userLat = position.coords.latitude;
             const userLon = position.coords.longitude;
 
+            // Validation check
+            if (!userLat || !userLon) {
+                document.getElementById("output").innerText = "❌ Invalid location data received.";
+                return;
+            }
+
             const distance = calculateDistance(userLat, userLon, uniLat, uniLon);
             document.getElementById("output").innerText =
-                `You are approximately ${distance.toFixed(2)} km away from Kasem Bundit University.`;
+                `📍 You are approximately ${distance.toFixed(2)} km away from Kasem Bundit University.`;
         }
 
         function calculateDistance(lat1, lon1, lat2, lon2) {
-            const R = 6371;
+            const R = 6371; // Earth radius in km
             const dLat = toRad(lat2 - lat1);
             const dLon = toRad(lon2 - lon1);
             const a =
@@ -104,22 +118,26 @@
         }
 
         function showError(error) {
-            let message = "Unable to retrieve location.";
+            let message = "❌ Unable to retrieve location.";
             switch (error.code) {
                 case error.PERMISSION_DENIED:
-                    message = "Location access was denied by the user.";
+                    message = "🚫 Location access was denied by the user.";
                     break;
                 case error.POSITION_UNAVAILABLE:
-                    message = "Location information is unavailable.";
+                    message = "⚠️ Location information is unavailable.";
                     break;
                 case error.TIMEOUT:
-                    message = "The request to get your location timed out.";
+                    message = "⏳ The request to get your location timed out.";
                     break;
                 case error.UNKNOWN_ERROR:
-                    message = "An unknown error occurred while retrieving your location.";
+                    message = "❓ An unknown error occurred while retrieving your location.";
                     break;
             }
             document.getElementById("output").innerText = message;
+        }
+
+        function goBack() {
+            window.history.back();
         }
     </script>
 
